@@ -5,3 +5,5 @@ html, body { margin: 0;	padding: 0;	width: 100%; background-color:#fff;}
 			table.dataTable{ width: 100%;}
 				tr.titles td{ text-decoration: underline; font-size: 1.2em;}
 					td { text-align: left; font-size: 1em; margin: 0em 0em 0em; font-weight: normal;}
+						td a.delete{ background: #000; color: red; text-decoration: none;}
+						td a.update { background: none repeat scroll 0 0 #000000; color: #90EE90; text-decoration: none;}

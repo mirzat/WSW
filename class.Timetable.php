@@ -17,12 +17,27 @@ class TimeTable{
 	public function __construct(){
 		$this->dbConnect = Database::createConnection();
 		
-		if($this->trainInfo = $this->getFile())
+		// CREATE
+		if(isset($_POST['create'])){
+			$this->crud = new TimeEntry;
+		}
+		
+		elseif(isset($_GET['action'])){
+			if ($_GET['action'] == 'delete')
+				$this->crud = new DeleteEntry;
+			elseif ($_GET['action'] == 'update')
+				echo 'update';
+		}
+		
+		
+		
+		elseif($this->trainInfo = $this->getFile())
 			$this->trainData = $this->addToDatabase();
-
+			
 		else
 			echo '<h1>Error: File was not uploaded correctly</h1>';		
 			
+	
 			$this->displayTable();
 			$this->dbConnect = Database::closeConnection();
 		}
@@ -44,7 +59,7 @@ class TimeTable{
 		}
 			
 	
-		private function addToDatabase(){
+		public function addToDatabase(){
 			
 			// Extract train information into 2 dimensional array
 			$i = 0;	
@@ -114,12 +129,27 @@ class TimeTable{
 						// Print the human friendly format
 						foreach ($assocArray as $row){
 							echo '<tr>';
-							foreach ($row as $data){
-								echo "<td>$data</td>";
+							foreach ($row as $key=>$value){
+								if ($key == 'run_number')
+									$runNumber = $value;
+								echo "<td>$value</td>";
 								}
-							echo '</tr>';
+								
+								echo "<td><a class='update' href='class.Timetable.php?action=update&run_Number=".$runNumber."'>Update</a></td>"; 
+								echo "<td><a class='delete' href='class.Timetable.php?action=delete&run_Number=".$runNumber."'>Delete</a></td>"; 
+								
 						}
-						?>									
+						?>							
+							<tr>
+								<form name="addTime" method="POST">
+									<td><input type="text" name="trainLine"></td>
+									<td><input type="text" name="route"></td>
+									<td><input type="text" name="runNumber"></td>
+									<td><input type="text" name="operatorID"></td>
+									<td><input type="submit" name="create" value="Add New Entry"></td>
+								</form>
+								
+							</tr>					
 						</table>
 					</div>
 				</body>
