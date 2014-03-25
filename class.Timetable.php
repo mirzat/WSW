@@ -22,6 +22,12 @@ class TimeTable{
 			$this->crud = new TimeEntry;
 		}
 		
+		// UPDATE
+		if(isset($_POST['update'])){
+			$this->crud = new UpdateEntry;
+		}
+		
+		
 		elseif(isset($_GET['action'])){
 			if ($_GET['action'] == 'delete')
 				$this->crud = new DeleteEntry;
@@ -64,7 +70,7 @@ class TimeTable{
 			// Extract train information into 2 dimensional array
 			$i = 0;	
 			foreach ($this->trainInfo as $train)
-				$trainData[$i++] = explode(",", $train);
+				$trainData[$i++] = explode(", ", $train);
 
 			/*// Get the index of the run number in title row
 			foreach ($trainData[0] as $key=>$value){
@@ -135,7 +141,7 @@ class TimeTable{
 								echo "<td>$value</td>";
 								}
 								
-								echo "<td><a class='update' href='class.Timetable.php?action=update&run_Number=".$runNumber."'>Update</a></td>"; 
+								echo "<td><a class='update' href='update.php?action=update&run_Number=".$runNumber."'>Update</a></td>"; 
 								echo "<td><a class='delete' href='class.Timetable.php?action=delete&run_Number=".$runNumber."'>Delete</a></td>"; 
 								
 						}

@@ -1,5 +1,5 @@
 <?php
-	class TimeEntry
+	class UpdateEntry
 		{
 			private $dbConnect;
 			private $trainLine;
@@ -13,12 +13,11 @@
 				$this->route = $_POST['route'];
 				$this->runNumber = $_POST['runNumber'];
 				$this->operatorID = $_POST['operatorID'];
-				$this->addTime();
+				$this->updateTime();
 			}			
 			
-			private function addTime(){
-				$this->sql = "INSERT INTO timetable VALUES ('".$this->trainLine."', '".$this->route."', '".$this->runNumber."', '".$this->operatorID."')";
-				
+			private function updateTime(){
+				$this->sql = "UPDATE timetable SET train_line = '".$this->trainLine."', route = '".$this->route."', operator_id = '".$this->operatorID."' WHERE run_number = '".$this->runNumber."'";	
 				try{	
 					$dbInsert = $this->dbConnect->query($this->sql);
 				}
