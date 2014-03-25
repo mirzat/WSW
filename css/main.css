@@ -1,9 +1,11 @@
-html, body { margin: 0;	padding: 0;	width: 100%; background-color:#fff;}
-	h1 { font-size: 2em; font-weight: normal; margin: 1.6em 0em 0em;}
+html, body { margin-left: 25px; padding: 0;	width: 100%; background-color:#fff;}
+	h1 { font-size: 2em; font-weight: normal;}
 		#csvFile{border: 1px solid #000;}
 		#trainInformation {	font-family: Verdana, Arial, sans-serif; font-size: 100%; width: 50%;}
 			table.dataTable{ width: 100%;}
+			table.update { width: 40%;}
 				tr.titles td{ text-decoration: underline; font-size: 1.2em;}
 					td { text-align: left; font-size: 1em; margin: 0em 0em 0em; font-weight: normal;}
 						td a.delete{ background: #000; color: red; text-decoration: none;}
 						td a.update { background: none repeat scroll 0 0 #000000; color: #90EE90; text-decoration: none;}
+				tr.addTime { height: 100px;}

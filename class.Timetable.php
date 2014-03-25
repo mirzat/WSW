@@ -27,28 +27,21 @@ class TimeTable{
 			$this->crud = new UpdateEntry;
 		}
 		
-		
-		elseif(isset($_GET['action'])){
-			if ($_GET['action'] == 'delete')
+		// DELETE
+		elseif(isset($_GET['action'])  && ($_GET['action'] == 'delete')){
 				$this->crud = new DeleteEntry;
-			elseif ($_GET['action'] == 'update')
-				echo 'update';
 		}
 		
-		
-		
+		// ADD CSV File to database
 		elseif($this->trainInfo = $this->getFile())
 			$this->trainData = $this->addToDatabase();
-			
-		else
-			echo '<h1>Error: File was not uploaded correctly</h1>';		
-			
-	
-			$this->displayTable();
-			$this->dbConnect = Database::closeConnection();
+						
+		// Print the time table
+		$this->displayTable();
+		$this->dbConnect = Database::closeConnection();
 		}
 		
-		
+		// Read uploaded CSV File
 		private function getFile(){
 			// If a file was uploaded and there were no errors and the file is the uploaded file
 			if (isset($_FILES['csvFile'])){
@@ -57,6 +50,7 @@ class TimeTable{
 					$fileName = $_FILES['csvFile']['tmp_name'];
 					if ($fh = fopen($fileName, "r")) {
 						$trainInfo = explode("\n", file_get_contents($fileName));
+						// We should add data validation code here to sanitize data
 						fclose($fh);
 						return $trainInfo;
 					}
@@ -64,21 +58,13 @@ class TimeTable{
 			}
 		}
 			
-	
+		// Upload data to database
 		public function addToDatabase(){
 			
 			// Extract train information into 2 dimensional array
 			$i = 0;	
 			foreach ($this->trainInfo as $train)
 				$trainData[$i++] = explode(", ", $train);
-
-			/*// Get the index of the run number in title row
-			foreach ($trainData[0] as $key=>$value){
-				if (stripos($value, 'number')){
-					$GLOBALS['runNumber'] = $key;
-					break;
-				}
-			}*/
 
 			// Remove the field names
 			unset($trainData[0]);
@@ -106,7 +92,7 @@ class TimeTable{
 			return $trainData;
 		}
 
-	
+		// Print time table
 		private function displayTable(){	?>
 			<!DOCTYPE html>
 			<head><link rel="stylesheet" href="css/main.css" type="text/css"></head>
@@ -141,12 +127,14 @@ class TimeTable{
 								echo "<td>$value</td>";
 								}
 								
+								// To edit or delete enries 
 								echo "<td><a class='update' href='update.php?action=update&run_Number=".$runNumber."'>Update</a></td>"; 
 								echo "<td><a class='delete' href='class.Timetable.php?action=delete&run_Number=".$runNumber."'>Delete</a></td>"; 
 								
 						}
 						?>							
-							<tr>
+							<tr class='addTime'>
+								<!--To add new enty to table-->
 								<form name="addTime" method="POST">
 									<td><input type="text" name="trainLine"></td>
 									<td><input type="text" name="route"></td>
@@ -157,6 +145,7 @@ class TimeTable{
 								
 							</tr>					
 						</table>
+						<a href="index.html">Click Here to upload more CSV Files</a>
 					</div>
 				</body>
 			</html>	
@@ -165,10 +154,3 @@ class TimeTable{
 
 $display = new Timetable();
 ?>
-
-
-
-
-
-
-

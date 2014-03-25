@@ -1,6 +1,7 @@
 <?php
 	class DeleteEntry
 		{
+			// Declare Variables
 			private $dbConnect;
 			private $runNumber;
 								
@@ -10,6 +11,7 @@
 				$this->deleteTime();
 			}			
 			
+			// Function to delete entry from table
 			private function deleteTime(){
 				$this->sql = "DELETE FROM timetable WHERE run_number = '".$this->runNumber."'";
 				try{	

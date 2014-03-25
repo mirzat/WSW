@@ -1,18 +1,18 @@
 <?php
 	class Database
 		{
+			// Declare Variables
 			private static $mysql_host = 'localhost'	/*'mysql5.000webhost.com:3306'*/ ;
 		    private static $mysql_database = 'train' 	/*'a4126787_train'*/;
 		    private static $mysql_user = 'root'			/*'a4126787_root'*/;
 		    private static $mysql_password = ''			/*'password123'*/; 
 		    private static $connection  = null;
-		    
-		    
-     
+		   
+		   
 		    public function __construct() {
 		    }
 		     
-		     
+		    // Creating database connection 
 		    public static function createConnection()
 		    {
 				self::$connection = mysqli_connect(self::$mysql_host, self::$mysql_user, self::$mysql_password, self::$mysql_database);
@@ -22,7 +22,7 @@
 				return self::$connection;
 			}
 		     
-		     
+		    // Closing database connection  
 		    public static function closeConnection()
 		    {
 		        self::$connection = null;

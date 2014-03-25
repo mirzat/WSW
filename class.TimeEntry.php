@@ -1,6 +1,7 @@
 <?php
 	class TimeEntry
 		{
+			// Declare Variables
 			private $dbConnect;
 			private $trainLine;
 			private $route;
@@ -13,9 +14,11 @@
 				$this->route = $_POST['route'];
 				$this->runNumber = $_POST['runNumber'];
 				$this->operatorID = $_POST['operatorID'];
+				// All of the above data must be sanitized for inserting into db
 				$this->addTime();
 			}			
 			
+			// Function to add new entry to table
 			private function addTime(){
 				$this->sql = "INSERT INTO timetable VALUES ('".$this->trainLine."', '".$this->route."', '".$this->runNumber."', '".$this->operatorID."')";
 				
